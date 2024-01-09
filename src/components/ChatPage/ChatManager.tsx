@@ -57,7 +57,7 @@ const UserInfo: React.FC = () => {
     return (
         <Card className="w-full h-16 p-3 flex flex-row justify-between items-center">
             <div className="flex flex-row justify-between items-center w-full">
-                <Avatar src={'/user.png'} size="sm" className="mr-2" />
+                <Avatar src={'/emoji.png'} size="sm" className="mr-2" classNames={{base: "bg-transport"}} />
                 <div className="text-md flex-1">{user?.username}</div>
                 <Button className="text-md" color="primary" variant="light" onClick={api.logout}>Logout</Button>
             </div>

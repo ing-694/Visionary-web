@@ -36,9 +36,10 @@ const MessageBlock: React.FC<MessageBlockProps> = ({ message }) => {
                     {message.content}
                 </Card>
                 <Avatar
-                    src={'/user.png'}
+                    src={'/emoji.png'}
                     size="md"
                     className="ml-2"
+                    classNames={{base: "bg-transport"}}
                 />
             </div>
         );
@@ -46,7 +47,7 @@ const MessageBlock: React.FC<MessageBlockProps> = ({ message }) => {
         return (
             <div className="flex w-full justify-start items-start mb-4">
                 <Avatar
-                    src={'/robot.png'}
+                    src={'/chatgpt-logo.png'}
                     size="md"
                     className="mr-2"
                 />
