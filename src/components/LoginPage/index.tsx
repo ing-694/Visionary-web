@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Tabs, Tab, Input, Button } from '@nextui-org/react';
+import { api } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+import { useStore } from '../../store';
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -7,11 +10,27 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = () => {
+  const navigate = useNavigate();
+
+  const { setUser } = useStore();
+
+  const handleSubmit = async () => {
     if (isLogin) {
-      // handle login logic
+      const jwt = await api.login(username, password);
+      if (jwt) {
+        navigate('/');
+        setUser({ username: username, balance: 0, avatarUrl: '/user.png' });
+      } else {
+        // handle login error
+      }
     } else {
-      // handle register logic
+      const jwt = await api.register(username, password);
+      if (jwt) {
+        navigate('/');
+        setUser({ username: username, balance: 0, avatarUrl: '/user.png' });
+      } else {
+        // handle register error
+      }
     }
   };
 
@@ -25,38 +44,38 @@ const LoginPage = () => {
           className="mb-4"
         >
           <Tab key="login" title="Login" className='w-full'>
-            <Input 
-              className="mb-2" 
+            <Input
+              className="mb-2"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               label="Username"
             />
-            <Input 
-              className="mb-4" 
-              value={password} 
+            <Input
+              className="mb-4"
+              value={password}
               type='password'
-              onChange={(e) => setPassword(e.target.value)} 
+              onChange={(e) => setPassword(e.target.value)}
               label="Password"
             />
             <Button onClick={handleSubmit} className='w-full' color="primary">Login</Button>
           </Tab>
           <Tab key="register" title="Register" className='w-full'>
-            <Input 
-              className="mb-2" 
-              value={username} 
+            <Input
+              className="mb-2"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
               label="Username"
             />
-            <Input 
-              className="mb-2" 
-              value={password} 
+            <Input
+              className="mb-2"
+              value={password}
               type='password'
               onChange={(e) => setPassword(e.target.value)}
               label="Password"
             />
-            <Input 
-              className="mb-4" 
-              value={confirmPassword} 
+            <Input
+              className="mb-4"
+              value={confirmPassword}
               type='password'
               onChange={(e) => setConfirmPassword(e.target.value)}
               label="Confirm Password"
